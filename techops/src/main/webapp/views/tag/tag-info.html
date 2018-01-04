@@ -1,0 +1,67 @@
+<form style="margin-left: -22px;" class="form-horizontal" name="tagQueryForm">
+    <div style="margin-top: 10px;" class="form-group">
+        <div class="col-md-4">
+            <span class="col-sm-4 control-label">{{'tagMgr.tagCode' | translate}}:</span>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" placeholder="{{'tagMgr.tagCode' | translate}}" ng-model="tagQuery.code" maxlength="64">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <span class="col-md-4 control-label">{{'tagMgr.type' | translate}}:</span>
+            <div class="col-md-8 btn-group" uib-dropdown is-open="tagTypesDropdown.isOpen">
+                <button type="button" class="btn btn-primary" ng-disabled="disabled" uib-dropdown-toggle>
+                    <span ng-bind="tagTypesDropdown.option.code"></span>
+                    <span class="caret"></span>
+                </button>
+                <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                    <li ng-repeat="it in tagTypesDropdown.items">
+                        <a ng-click="tagTypesDropdown.selectOption(it)" ng-bind="it.code"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="panel-body pull-right">
+    <a class="btn btn-info" ng-click="launch('add')" role="button">{{'tagMgr.addTag' | translate}}</a>
+    <button class="btn btn-info" ng-click="queryTag(0)">{{'dialog.query' | translate}}</button>
+</div>
+
+<div>
+    <table class="text-left table grey-border table-hover vertical-middle">
+        <thead class="text-color-c4">
+        <tr>
+            <th>{{'tagMgr.tagCode' | translate}}</th>
+            <th>{{'tagMgr.tagCategory' | translate}}</th>
+            <th>{{'tagMgr.tagDesc' | translate}}</th>
+            <th style="width: 4em">{{'userMgr.status' | translate}}</th>
+            <th style="text-align: center">{{'userMgr.operators' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody class="text-color-c6">
+
+        <tr ng-if="tagsLoading!=''">
+            <td colspan="9" class="tc" ng-bind="tagsLoading"></td>
+        </tr>
+
+        <tr ng-repeat="d in tags">
+            <td ng-bind="d.code"></td>
+            <td ng-bind="getTagTypeCode(d)"></td>
+            <td ng-bind="d.description"></td>
+            <td ng-bind="!d.status?'{{'userMgr.enable' | translate}}':'{{ 'userMgr.disable' | translate}}'"></td>
+            <td class="text-color-c9" style="text-align: center">
+                <div class="btn-group">
+                    <a title="{{'tagMgr.manageTagGrp' | translate}}" class="btn btn-info" ng-click="navToTagGrp(d)"><i class="fa fa-users"></i></a>
+                    <a title="{{'tagMgr.manageTagUser' | translate}}" class="btn btn-info" ng-click="navToTagUser(d)"><i class="fa  fa-street-view"></i></a>
+                    <a title="{{'tagMgr.editTag' | translate}}" class="btn btn-info" ng-click="launch('modify', d)"><i class="fa fa-pencil"></i></a>
+                    <a title="{{d.status?('tagMgr.enableTag' | translate):( 'tagMgr.disableTag'| translate)}}" class="btn btn-info" ng-click="launch('status', d)">
+                        <i ng-class="d.status?'fa fa-check':'fa fa-ban'"></i>
+                    </a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <uib-pagination ng-if="tags && tags.length" boundary-links="true" ng-change="queryTag()" items-per-page="pagination.pageSize" max-size="pagination.showPageNum" total-items="pagination.totalCount" ng-model="pagination.curPage" class="pagination-sm float-right" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+</div>

@@ -1,0 +1,36 @@
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            {{ 'groupMgr.add.title' | translate}}
+        </h3>
+    </div>
+    <div class="panel-body">
+        <div>
+            <ng-form name="addGroupForm" novalidate role="form">
+                <div class="form-group">
+                    <label>{{ 'groupMgr.label.parentGroupId'| translate}}:</label>
+                    <p>{{targetGroup.id}}</p>
+                </div>
+                <div class="form-group">
+                    <label>{{ 'groupMgr.label.parentGroupName'| translate}}:</label>
+                    <p>{{targetGroup.label}}</p>
+                </div>
+                <div class="form-group">
+                    <label for="name"> {{ 'groupMgr.groupName'| translate}}:</label>
+                    <input type="text" class="form-control" placeholder="{{ 'groupMgr.groupName'| translate}}" id="name" ng-model="grp.name" required>
+                </div>
+                <div class="form-group">
+                    <label for="code">{{ 'groupMgr.add.groupCode' | translate}}:</label>
+                    <input type="text" class="form-control" placeholder="{{ 'groupMgr.add.groupKey' | translate}}" id="code" ng-model="grp.code" required>
+                </div>
+                <div class="form-group">
+                    <label for="description" placeholder="{{ 'groupMgr.add.groupDesc'| translate}}">{{ 'groupMgr.add.groupDesc'| translate}}:</label>
+                    <textarea class="form-control" rows="3" id="description" placeholder="{{ 'groupMgr.add.groupDesc'| translate}}" ng-model="grp.description"></textarea>
+                </div>
+                <button type="button" class="btn btn-info" ng-click="addGroup()"
+                        ng-disabled="(addGroupForm.$dirty && addGroupForm.$invalid) || addGroupForm.$pristine">{{ 'groupMgr.add.confirm' | translate}}</button>
+                <button type="button" class="btn btn-link" ng-click="reset(false,true)">{{ 'groupMgr.label.cancel'| translate }}</button>
+            </ng-form>
+        </div>
+    </div>
+</div>

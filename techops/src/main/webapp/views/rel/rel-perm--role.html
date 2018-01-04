@@ -1,0 +1,58 @@
+<div style="width: 27%">
+    <ui-select ng-model="perm.selected"
+               theme="bootstrap"
+               ng-disabled="disabled"
+               reset-search-input="false"
+               style="width:100%;margin-top: 6px;">
+        <ui-select-match placeholder="{{'relMgr.permInputMsg' | translate}}">{{$select.selected.value}}</ui-select-match>
+        <ui-select-choices repeat="perm in perms track by $index"
+                           refresh="refreshPerms($select.search)"
+                           refresh-delay="300">
+            <div ng-bind-html="perm.value | highlight: $select.search"></div>
+        </ui-select-choices>
+    </ui-select>
+</div>
+<div style="padding: 5px 5px 5px 5px">
+    <div ng-if="perm.selected.id">
+        <i class="fa fa-exclamation-circle font-color-blue"></i>
+        {{'relMgr.selectedPermId' | translate}}: <strong>'{{perm.selected.id}}'</strong> {{'common.value' | translate}}: <strong>'{{perm.selected.value}}'</strong> {{'common.type' | translate}}: <strong>'{{perm.selected.permType}}'</strong> .
+    </div>
+    <div ng-if="!perm.selected.id">
+        <i class="fa fa-exclamation-circle font-color-blue"></i>
+        {{'relMgr.noPermSelected' | translate}}
+    </div>
+</div>
+<input style="padding: 5px 5px 5px 5px; width: 24%;" type="text" class="form-control" ng-model="predicate" placeholder="{{'auditMgr.filterInPage' | translate}}" />
+<div>
+    <table class="text-left table grey-border table-hover vertical-middle">
+        <thead class="text-color-c4">
+        <tr>
+            <th>{{'relMgr.roleName' | translate}}</th>
+            <th>{{'relMgr.roleCode' | translate}}</th>
+             <th>{{'common.desc' | translate}}</th>
+            <th>{{'relMgr.isRelated' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody class="text-color-c6">
+
+        <tr ng-if="permRolesMsg!=''">
+            <td colspan="9" class="tc" ng-bind="permRolesMsg"></td>
+        </tr>
+
+        <tr ng-repeat="d in roles | filter:predicate:comparator">
+            <td ng-bind="d.name"></td>
+            <td ng-bind="d.roleCode"></td>
+            <td ng-bind="d.description"></td>
+            <td><input type="checkbox" ng-model="d.checked"></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="modal-footer">
+    	<div class="btn-left">
+        	<button type="button" class="btn btn-info" ng-click="selectAllRolesForPerm(true)">{{'relMgr.selectedAll' | translate}}</button>
+        	<button type="button" class="btn btn-default" ng-click="selectAllRolesForPerm(false)">{{'relMgr.selectedNone' | translate}}</button>
+        </div>
+        <button type="button" class="btn btn-primary" ng-click="replaceRolesToPerm()"
+                ng-disabled="perm.selected == null">{{'dialog.save' | translate}}</button>
+    </div>
+</div>

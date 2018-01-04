@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed to Apereo under one or more contributor license
+    agreements. See the NOTICE file distributed with this work
+    for additional information regarding copyright ownership.
+    Apereo licenses this file to you under the Apache License,
+    Version 2.0 (the "License"); you may not use this file
+    except in compliance with the License.  You may obtain a
+    copy of the License at the following location:
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean id="characterEncodingFilter" class="org.springframework.web.filter.CharacterEncodingFilter"
+            p:encoding="${httprequest.web.encoding:UTF-8}"
+            p:forceEncoding="${httprequest.web.encoding.force:true}" />
+            
+    <bean id="requestParameterSecurityFilter"
+          class="org.jasig.cas.security.RequestParameterPolicyEnforcementFilter"
+          p:allowMultiValueParameters="${cas.http.allow.multivalue.params:false}">
+        <property name="parametersToCheck">
+            <bean class="org.springframework.util.StringUtils" factory-method="commaDelimitedListToSet">
+                <constructor-arg type="java.lang.String"
+                                 value="${cas.http.check.params:ticket,service,renew,gateway,warn,target,SAMLart,pgtUrl,pgt,pgtId,pgtIou,targetService,entityId}"/>
+            </bean>
+        </property>
+        <property name="charactersToForbid">
+            <util:set />
+        </property>
+        <property name="onlyPostParameters">
+            <bean class="org.springframework.util.StringUtils" factory-method="commaDelimitedListToSet">
+                <constructor-arg type="java.lang.String"
+                                 value="${cas.http.allow.post.params:username,password}"/>
+            </bean>
+        </property>
+    </bean>
+    
+    
+    <!--  cas cross filter bean -->
+    <bean id="casCrossFilterBean" class="com.dianrong.common.uniauth.cas.filter.CasCorsFilter">
+    		<property name="crossFilterCacheHelper">
+    			<bean class="com.dianrong.common.uniauth.cas.helper.CasCrossFilterCacheHelper">
+    				<property name="defualtCrosAllowedOrigins">
+    					<value>
+	    					^http(s)?://.+\.(dianrong|starlinked|starwin)\.com;
+	    					<!-- ^http(s)?://([a-z]+\-)?[a-z]+(\-[a-z]+)?\.(dianrong|starlinked|starwin)\.com; -->
+			                ^http://[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}(:[0-9]{1,6})?;
+			                ^http://[a-z]+(:[0-9]+)?
+		                </value>
+    				</property>
+    			</bean>
+    		</property>
+    		<property name="corsAllowedMethods">
+    			<value>GET;POST;HEAD;OPTIONS;PUT;DELETE</value>
+    		</property>
+    		<property name="corsAllowedHeaders">
+    			<value>Content-Type;X-Requested-With;accept;Origin;Access-Control-Request-Method;Access-Control-Request-Headers;Cookie</value>
+    		</property>
+    		<property name="corsExposedHeaders">
+    			<value>Access-Control-Allow-Origin;Access-Control-Allow-Credentials;Access-Control-Allow-Headers</value>
+    		</property>
+    		<property name="corsSupportCredentials">
+    			<value>true</value>
+    		</property>
+    		<property name="corsPreflightMaxage">
+    			<value>10</value>
+    		</property>
+    </bean>
+    <!--  cas cross filter bean -->
+    
+    <!-- xssFilter -->
+    <bean id="xssFilter" class="com.dianrong.common.uniauth.cas.filter.XssFilter">
+        <constructor-arg>
+              <list>
+                <ref bean="casRequest1"/>
+                <ref bean="casRequest2"/>
+                <ref bean="casRequest3"/>
+                <ref bean="casRequest4"/>
+              </list>
+        </constructor-arg>
+        <property name="excludeParameters" value="password, originPassword"/>
+    </bean>
+    <bean id="casRequest1" class="com.dianrong.common.uniauth.cas.filter.support.CasRequest">
+        <constructor-arg>
+            <value>/uniauth/forgetPassword</value>
+        </constructor-arg>
+        <property name="method" value="POST"/>
+    </bean>
+    <bean id="casRequest2" class="com.dianrong.common.uniauth.cas.filter.support.CasRequest">
+    <constructor-arg>
+            <value>/login</value>
+        </constructor-arg>
+        <property name="method" value="POST"/>
+    </bean>
+    <bean id="casRequest3" class="com.dianrong.common.uniauth.cas.filter.support.CasRequest">
+         <constructor-arg>
+             <value>/uniauth/userinfo/password</value>
+         </constructor-arg>
+        <property name="method" value="POST"/>
+    </bean>
+    <bean id="casRequest4" class="com.dianrong.common.uniauth.cas.filter.support.CasRequest">
+         <constructor-arg>
+             <value>/uniauth/initPassword/process</value>
+         </constructor-arg>
+        <property name="method" value="POST"/>
+    </bean>
+    <!-- xssFilter -->
+    
+    <!-- server exception process filter -->
+    <bean id="applicationExceptionFilter" class="com.dianrong.common.uniauth.cas.filter.AppExceptionFilter"/>
+    <!-- server exception process filter -->
+</beans>

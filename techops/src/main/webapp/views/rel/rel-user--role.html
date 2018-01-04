@@ -1,0 +1,59 @@
+<div style="width: 27%">
+    <ui-select ng-model="user.selected"
+               theme="bootstrap"
+               ng-disabled="disabled"
+               reset-search-input="false"
+               style="width:100%;margin-top: 6px;">
+        <ui-select-match placeholder="Enter an account...">{{$select.selected.account}}</ui-select-match>
+        <ui-select-choices repeat="user in users track by $index"
+                           refresh="refreshUsers($select.search)"
+                           refresh-delay="300">
+            <div ng-bind-html="user.account | highlight: $select.search"></div>
+        </ui-select-choices>
+    </ui-select>
+</div>
+
+<div style="padding: 5px 5px 5px 5px">
+    <div ng-if="user.selected.id">
+        <i class="fa fa-exclamation-circle font-color-blue"></i>
+        {{'relMgr.selectedUserId' | translate}}: <strong>'{{user.selected.id}}'</strong> {{'common.name' | translate}}: <strong>'{{user.selected.name}}'</strong>  {{'common.email' | translate}}: <strong>'{{user.selected.email}}'</strong>  {{'common.mobile' | translate}}: <strong>'{{user.selected.phone}}'</strong>.
+    </div>
+    <div ng-if="!user.selected.id">
+        <i class="fa fa-exclamation-circle font-color-blue"></i>
+        {{'relMgr.noUserSelected' | translate}}
+    </div>
+</div>
+<input style="padding: 5px 5px 5px 5px; width: 24%;" type="text" class="form-control" ng-model="predicate" placeholder="{{'auditMgr.filterInPage' | translate}}" />
+<div>
+    <table class="text-left table grey-border table-hover vertical-middle">
+        <thead class="text-color-c4">
+        <tr>
+            <th>{{'roleMgr.roleName' | translate}}</th>
+            <th>{{'roleMgr.roleCode' | translate}}</th>
+            <th>{{'common.desc' | translate}}</th>
+            <th>{{'relMgr.isRelated' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody class="text-color-c6">
+
+        <tr ng-if="userRolesMsg!=''">
+            <td colspan="9" class="tc" ng-bind="userRolesMsg"></td>
+        </tr>
+
+        <tr ng-repeat="d in roles | filter:predicate:comparator">
+            <td ng-bind="d.name"></td>
+            <td ng-bind="d.roleCode"></td>
+            <td ng-bind="d.description"></td>
+            <td><input type="checkbox" ng-model="d.checked"></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="modal-footer">
+    	<div class="btn-left">
+        	<button type="button" class="btn btn-info" ng-click="selectAllRolesForUser(true)">{{'relMgr.selectedAll' | translate}}</button>
+        	<button type="button" class="btn btn-default" ng-click="selectAllRolesForUser(false)">{{'relMgr.selectedNone' | translate}}</button>
+        </div>
+        <button type="button" class="btn btn-primary" ng-click="replaceRolesToUser()"
+                ng-disabled="user.selected == null">{{'dialog.save' | translate}}</button>
+    </div>
+</div>
