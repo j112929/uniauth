@@ -24,6 +24,7 @@ String version = (String)application.getAttribute("cas_v");
 	<!-- for ad scroll -->
 	<link href="<%=path %>/imgscroll/css/scroll.css?v=<%=version %>" rel="stylesheet">
 	<link href="<%=path %>/css/main.css?v=<%=version %>" rel="stylesheet">
+	<link href="<%=path %>/css/login.css?v=<%=version %>" rel="stylesheet" type="text/css"/>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
   <![endif]-->
@@ -63,4 +64,4 @@ String version = (String)application.getAttribute("cas_v");
       	</c:if>
       </header>
       <input type="hidden" id="hidden_path_input" value="<%=path %>">
-      <div id="content">
+      <div class="wrapper">

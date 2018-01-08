@@ -41,4 +41,8 @@ public interface IUserRWResource extends IUserResource {
   @Path("savetagstouser")
   // scenario: techops user-tag
   Response<Void> replaceTagsToUser(UserParam userParam);
+  
+  @POST
+  @Path("updateLoginTimes")
+  Response<Void> updateLoginTimesById(UserParam userParam);
 }

@@ -111,4 +111,6 @@ public interface UserMapper {
   List<User> getUsersByGroupCodeRoleIds(Map<String, Object> param);
   
   User getUserByIdentity(Map<String, Object> param);
+  
+  int updateLoginTimesById(Map<String, Object> param);
 }

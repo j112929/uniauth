@@ -94,6 +94,7 @@
             <binding property="password" required="true"/>
             <binding property="tenancyCode" required="true"/>
             <binding property="captcha" required="false"/>
+            <binding property="validCode" required="false"/>
         </binder>
         <on-entry>
             <set name="viewScope.commandName" value="'credential'"/>

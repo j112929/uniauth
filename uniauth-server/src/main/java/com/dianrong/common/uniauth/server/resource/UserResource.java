@@ -1,5 +1,12 @@
 package com.dianrong.common.uniauth.server.resource;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.codahale.metrics.annotation.Timed;
 import com.dianrong.common.uniauth.common.bean.Response;
 import com.dianrong.common.uniauth.common.bean.dto.PageDto;
@@ -15,14 +22,11 @@ import com.dianrong.common.uniauth.common.bean.request.UserQuery;
 import com.dianrong.common.uniauth.server.service.UserService;
 import com.dianrong.common.uniauth.server.service.multidata.DelegateUserAuthentication;
 import com.dianrong.common.uniauth.sharerw.interfaces.IUserRWResource;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by Arc on 14/1/16.
@@ -206,4 +210,20 @@ public class UserResource implements IUserRWResource {
   public Response<VPNLoginResult> vpnLogin(LoginParam loginParam) {
     return Response.success(userService.vpnLogin(loginParam));
   }
+
+	@Override
+	public Response<Void> updateLoginTimesById(UserParam userParam) {
+		Map<String, Object> map = new HashMap<>();
+		if(userParam.getId() != null){
+			map.put("id", userParam.getId());
+		}
+		if(userParam.getLoginTimesNoPhone() != null){
+			map.put("loginTimesNoPhone", userParam.getLoginTimesNoPhone());
+		}
+		int count = userService.updateLoginTimesById(map);
+		if(count == 1){
+			return Response.success();
+		}
+		return Response.failure();
+	}
 }

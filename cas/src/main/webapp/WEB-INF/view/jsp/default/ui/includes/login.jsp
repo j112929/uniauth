@@ -2,6 +2,7 @@
 <%@ page import="com.dianrong.common.uniauth.common.cons.AppConstants" %>
 <%@ page import="com.dianrong.common.uniauth.cas.model.CasLoginCaptchaInfoModel"%>
 <jsp:directive.include file="top.jsp" />
+
 <div id="cookiesDisabled" class="errors" style="display:none;">
     <h2><spring:message code="screen.cookies.disabled.title" /></h2>
     <p><spring:message code="screen.cookies.disabled.message" /></p>
@@ -9,7 +10,13 @@
 
 <p><spring:message code="screen.welcome.security"/></p>
 
-<div class="box" id="login">
+<div class="content2" id="login">
+	<div class="error" hidden="hidden"><spring:message code="sms.input.error.content"/>
+		<img src="<%=path %>/images/image/false.png" />
+	</div>
+	<div class="logo">
+		<img src="<%=path %>/images/image/logo.png"/>
+	</div>
     <form:form method="post" id="fm1" commandName="${commandName}" htmlEscape="true">
         <form:errors path="*" id="msg" cssClass="errors" element="div" htmlEscape="false" />
 		<c:if test="${not empty param.dupsession}">
@@ -80,6 +87,13 @@
             <form:password cssClass="required" cssErrorClass="error" id="password" size="25" tabindex="2" path="password"  accesskey="${passwordAccessKey}" htmlEscape="true" autocomplete="off" />
             <span id="capslock-on" style="display:none;"><p><img src="<%=path %>/images/warning.png" valign="top"> <spring:message code="screen.capslock.on" /></p></span>
         </section>
+        <section class="row">
+			<label for="captcha"><spring:message code="screen.welcome.label.captcha" /></label>
+			<div class="captcha-class">
+			<input type="text" style="width: 50%;"   id="validCode" name="validCode" />
+			<input type="button" id="send-submit" class="getCode" style="float: right;width: 40%;border-radius: 2px;"   value="<spring:message code="sms.send.button.content"/>" onclick = "send()"/>
+			</div>
+		</section>
 
 		<!-- captcha box -->
 		<%
@@ -106,8 +120,8 @@
             <input type="hidden" name="execution" value="${flowExecutionKey}" />
             <input type="hidden" name="_eventId" value="submit" />
 
-            <input class="btn-submit  enable-after-init-success"  name="cas_submit"  disabled="disabled"  accesskey="l"  value="<spring:message code="screen.welcome.button.login" />"  tabindex="6"   id="btn_cas_submit"   type="button" />
-            <input class="btn-reset" name="reset" accesskey="c" value="<spring:message code="screen.welcome.button.clear" />" tabindex="7" type="reset" />
+            <input class="btn-submit  enable-after-init-success " style="background: #7fd36e;"  name="cas_submit"  disabled="disabled"  accesskey="l"  value="<spring:message code="screen.welcome.button.login" />"  tabindex="6"   id="btn_cas_submit"   type="button" />
+            <%-- <input class="btn-reset" name="reset" accesskey="c" value="<spring:message code="screen.welcome.button.clear" />" tabindex="7" type="reset" /> --%>
             
             <c:if test="${empty edituserinfo}">
             		<div class="personal-info-link text_decoration_none">
@@ -122,11 +136,33 @@
         </section>
     </form:form>
 </div>
-<div id="sidebar">
-    <div class="sidebar-content cas-ad hiddenbtn" id="cas-ad-div">
-    </div>
-</div>
+
 <jsp:directive.include file="bottom.jsp" />
 <script type="text/javascript" src="<%=path %>/js/loginpage.js?v=<%=version %>" ></script>
 <script type="text/javascript" src="<%=path %>/js/pwdforget.js?v=<%=version %>" ></script>
 <script type="text/javascript" src="<%=path %>/js/userinfoedit.js?v=<%=version %>" ></script>
+<script type="text/javascript">
+function send(){
+	var username = $('#username').val();
+	var tenancy_code = $('#btn_confirm_tenancy').val();
+	$.ajax({
+		type:'POST',
+		url:"/cas/v1/msg/send",
+		data:{
+			email:username,
+			tenancyCode:tenancy_code
+		},
+		success: function(data){
+			var code = data.data.code;
+			if(code == 0){
+				$("#send-submit").attr("disabled", true);
+			}
+		},
+		async:false
+	});
+	setTimeout("call()", 60000);
+}
+function call(){
+	$("#send-submit").attr("disabled", false);
+}
+</script>

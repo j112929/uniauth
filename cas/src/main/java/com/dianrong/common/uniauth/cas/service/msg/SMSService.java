@@ -1,8 +1,4 @@
-/**
- * @项目名称:上海什马消费信贷项目
- * @创建时间: 2016年5月28日
- */
- package com.dianrong.common.uniauth.server.service.msg;
+package com.dianrong.common.uniauth.cas.service.msg;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -17,17 +13,17 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.dianrong.common.uniauth.server.service.common.TenancyBasedService;
-import com.dianrong.common.uniauth.server.util.HttpClientUtils;
+import com.dianrong.common.uniauth.cas.util.HttpClientUtils;
+
 
 /**
  * <p>短信发送接口实现类（实现方法为sendMessage(MessageRequest  msg))<br>
  * @version 1.0
  */
-@Service
-public class MessageServiceImpl extends TenancyBasedService implements IMessageService {
+@Service("smsService")
+public class SMSService {
 		
-	private static final Logger logger = LoggerFactory.getLogger(MessageServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(SMSService.class);
 
     
 //    @Value("${com.shenmajr.message.send}")
@@ -35,7 +31,6 @@ public class MessageServiceImpl extends TenancyBasedService implements IMessageS
 
     
 
-	@Override
 	public MessageResponse sendMessage(MessageVaildCodeRequest messageVaildCodeRequest) {
 		  /**
          * 用于接收返回值的对象
@@ -54,7 +49,7 @@ public class MessageServiceImpl extends TenancyBasedService implements IMessageS
             	map.put("type", "CAS_LOGIN_VALID_CODE");
             	map.put("category", "HUATENG");
             	map.put("mobilenumber", "");
-            	map.put("vaildCode", getRandNum(4));//生成4位随机数
+            	map.put("vaildCode", "");//生成4位随机数
             	if(StringUtils.isNotBlank(messageVaildCodeRequest.getType())){
             		map.put("type", messageVaildCodeRequest.getType());
             	}

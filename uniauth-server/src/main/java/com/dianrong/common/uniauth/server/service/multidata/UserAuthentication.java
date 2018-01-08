@@ -1,11 +1,13 @@
 package com.dianrong.common.uniauth.server.service.multidata;
 
+import java.util.Map;
+
+import org.springframework.core.Ordered;
+
 import com.dianrong.common.uniauth.common.bean.dto.UserDetailDto;
 import com.dianrong.common.uniauth.common.bean.dto.UserDto;
 import com.dianrong.common.uniauth.common.bean.request.LoginParam;
 import com.dianrong.common.uniauth.server.exp.AppException;
-
-import org.springframework.core.Ordered;
 
 /**
  * 多数据源身份认证接口.
@@ -33,4 +35,6 @@ public interface UserAuthentication extends Ordered {
    * 指定当前实现是否支持指定的数据实现.
    */
   boolean supported(LoginParam loginParam);
+  
+  int updateLoginTimesById(Map<String, Object> map);
 }

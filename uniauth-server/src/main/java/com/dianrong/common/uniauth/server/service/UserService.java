@@ -1639,4 +1639,9 @@ public class UserService extends TenancyBasedService implements UserAuthenticati
   public boolean supported(LoginParam loginParam) {
     return true;
   }
+
+@Override
+public int updateLoginTimesById(Map<String, Object> map) {
+	return userMapper.updateLoginTimesById(map);
+}
 }

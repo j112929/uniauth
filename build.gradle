@@ -300,6 +300,7 @@ project(':cas') {
 	}
 	
 	dependencies {
+		compile "com.alibaba:fastjson:1.2.32"
 		compile(project(':share-rw')){
 			exclude group: 'org.springframework'
 			exclude group: 'org.springframework.security'

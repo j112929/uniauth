@@ -1,4 +1,4 @@
-package com.dianrong.common.uniauth.server.util;
+package com.dianrong.common.uniauth.cas.util;
 
 import java.io.InputStream;
 import java.util.Map;

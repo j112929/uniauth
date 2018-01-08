@@ -15,7 +15,7 @@
  */
  
 
-package com.dianrong.common.uniauth.server.service.msg;
+package com.dianrong.common.uniauth.cas.service.msg;
 
 /**
  * 自定义异常常量类

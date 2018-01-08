@@ -155,4 +155,11 @@ public class UserInfoManageService extends BaseService {
     List<Info> infoList = response.getInfo();
     checkInfoList(infoList);
   }
+  
+  public void updateLoginTimesById(Long id, Integer loginTimes){
+	  UserParam userParam = new UserParam();
+	  userParam.setId(id);
+	  userParam.setLoginTimesNoPhone(loginTimes);
+	  uarwFacade.getUserRWResource().updateLoginTimesById(userParam);
+  }
 }

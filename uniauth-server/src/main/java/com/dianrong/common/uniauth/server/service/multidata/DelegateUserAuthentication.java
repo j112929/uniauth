@@ -12,6 +12,7 @@ import com.google.common.collect.Lists;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
@@ -114,4 +115,10 @@ public class DelegateUserAuthentication
     Collections.sort(tempAuthenticationList, comparator);
     this.authenticationList = Collections.unmodifiableList(tempAuthenticationList);
   }
+
+@Override
+public int updateLoginTimesById(Map<String, Object> map) {
+	// TODO Auto-generated method stub
+	return 0;
+}
 }

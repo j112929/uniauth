@@ -33,12 +33,14 @@ public class UserParam extends Operator {
   private String groupCode;
   private Boolean includeSubGrp;
   private List<Integer> includeRoleIds;
+  
+  private Integer loginTimesNoPhone;
 
   /**
    * 是否忽略密码策略检查.
    */
   private Boolean ignorePwdStrategyCheck;
-
+  
   public List<Integer> getTagIds() {
     return tagIds;
   }
@@ -200,4 +202,12 @@ public class UserParam extends Operator {
     this.ignorePwdStrategyCheck = ignorePwdStrategyCheck;
     return this;
   }
+
+public Integer getLoginTimesNoPhone() {
+	return loginTimesNoPhone;
+}
+
+public void setLoginTimesNoPhone(Integer loginTimesNoPhone) {
+	this.loginTimesNoPhone = loginTimesNoPhone;
+}
 }

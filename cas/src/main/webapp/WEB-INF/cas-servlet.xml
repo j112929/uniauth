@@ -112,6 +112,7 @@
   <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**" />
+            <mvc:exclude-mapping path="*/msg/send"/>
             <ref bean="localeChangeInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>

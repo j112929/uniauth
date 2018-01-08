@@ -28,8 +28,6 @@ import com.dianrong.common.uniauth.server.ldap.ipa.entity.User;
 import com.dianrong.common.uniauth.server.ldap.ipa.support.IpaUtil;
 import com.dianrong.common.uniauth.server.service.cache.TenancyCache;
 import com.dianrong.common.uniauth.server.service.common.CommonService;
-import com.dianrong.common.uniauth.server.service.msg.IMessageService;
-import com.dianrong.common.uniauth.server.service.msg.MessageVaildCodeRequest;
 import com.dianrong.common.uniauth.server.service.multidata.UserAuthentication;
 import com.dianrong.common.uniauth.server.util.BeanConverter;
 import com.dianrong.common.uniauth.server.util.CheckEmpty;
@@ -64,9 +62,6 @@ public class IpaService implements UserAuthentication {
   @Autowired
   private UserService userService;
   
-  @Autowired
-  private IMessageService messageService;
-  
   /**
    * IPA账号的登陆.
    */
@@ -90,11 +85,6 @@ public class IpaService implements UserAuthentication {
       log.warn("IPA login, account {0} login failed", e);
       throw new AppException(InfoName.LOGIN_ERROR, UniBundle.getMsg("user.login.error"));
     }
-    //TODO 认证成功之后，判断是不是有手机号，有则发送短信；同步是在uniauth-job中做的（ldap->db（172.16.8.246））
-    //1.查手机号
-    //2.校验是否空
-    //3.不空则直接发短信
-    MessageVaildCodeRequest msg = new MessageVaildCodeRequest();
     
     UserDto uniauthUserDto = new UserDto();
     // load user basic information
@@ -102,20 +92,12 @@ public class IpaService implements UserAuthentication {
     if (StringUtils.hasText(user.getEmail())) {
       uniauthUserDto = getUniauthUserInfo(user, loginParam.getAccount());
       if (uniauthUserDto != null) {
-    	  if(StringUtils.hasText(uniauthUserDto.getPhone())){
-    		  msg.setMobilenumber(uniauthUserDto.getPhone());
-    		  messageService.sendMessage(msg);  
-    	  }
     	  return uniauthUserDto;
       }
     }
     // 没有关联的Uniauth账号
     uniauthUserDto = BeanConverter.convert(user);
     uniauthUserDto.setTenancyId(StringUtil.translateLongToInteger(defaultTenancyId));
-    if(StringUtils.hasText(uniauthUserDto.getPhone())){
-	    msg.setMobilenumber(uniauthUserDto.getPhone());
-		messageService.sendMessage(msg);  
-    }
     return uniauthUserDto;
   }
 
@@ -258,4 +240,10 @@ public class IpaService implements UserAuthentication {
       return false;
     }
   }
+
+@Override
+public int updateLoginTimesById(Map<String, Object> map) {
+	// TODO Auto-generated method stub
+	return 0;
+}
 }

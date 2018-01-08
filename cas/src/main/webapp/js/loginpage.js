@@ -2,7 +2,7 @@ $(function() {
 	//初始化函数
 	var init = function() {
 		//刷新滚动条
-		login_scroll_img_show();
+//		login_scroll_img_show();
 		
 		//添加验证码替换功能
 		$('#cas_login_captcha_change_img').click(function(){
@@ -18,8 +18,8 @@ $(function() {
 		//正常的长宽比例
 		var nomarlWidth = 500, normalHeight= 320, normalBoxHeight = 350;
 		//获取box的实际高度
-		var realBoxHeight = $('#content').height();
-		var realBoxWidth = $('#content').width();
+		var realBoxHeight = $('.content2').height();
+		var realBoxWidth = $('.content2').width();
 		var realLoginBoxWidth = $('#login').width();
 		
 		//算出最大的宽度

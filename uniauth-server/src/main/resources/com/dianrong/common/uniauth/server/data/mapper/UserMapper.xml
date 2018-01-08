@@ -480,4 +480,9 @@
       password_date = #{passwordDate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  
+  <update id="updateLoginTimesById" parameterType="map" >
+  	update user set login_times_no_phone = #{loginTimesNoPhone}
+  	where id = #{id}
+  </update>
 </mapper>

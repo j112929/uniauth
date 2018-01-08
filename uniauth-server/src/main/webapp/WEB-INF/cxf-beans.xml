@@ -28,7 +28,6 @@
             <ref bean="groupProfileResource"/>
             <ref bean="userDetailResource"/>
             <ref bean="userWorkRelationshipResource"/>
-            <ref bean="messageResource"/>
             
         </jaxrs:serviceBeans>
         <jaxrs:providers>

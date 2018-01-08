@@ -21,6 +21,10 @@ public class AuthenticationViaFormSubmitInterceptor {
    * . 验证码验证失败事件
    */
   public static final String CAPTCHA_VALIDATION_FAILED = "captchaValidFailed";
+  /**
+ * 短信验证码验证失败事件
+ */
+public static final String SMS_VALIDATION_FAILED = "smsValidFailed";
 
   /**
    * . 进行用户登陆的action
@@ -50,7 +54,11 @@ public class AuthenticationViaFormSubmitInterceptor {
         ((CasUsernamePasswordCredential) credential).getCaptcha())) {
       return newEvent(CAPTCHA_VALIDATION_FAILED);
     }
-
+    // 校验短信验证码
+    boolean flag = captchaValidHelper.msgCodeValidBefore(httpSession, messageContext, ((CasUsernamePasswordCredential) credential).getValidCode());
+    if(!flag){
+    	return newEvent(CAPTCHA_VALIDATION_FAILED);
+    }
     // 调用核心方法进行登陆处理
     Event event = authenticationAction.submit(context, credential, messageContext);
 

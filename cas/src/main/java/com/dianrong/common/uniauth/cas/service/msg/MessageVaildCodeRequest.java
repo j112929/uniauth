@@ -13,7 +13,7 @@
  * ===============================================================================
  */
  
-package com.dianrong.common.uniauth.server.service.msg;
+package com.dianrong.common.uniauth.cas.service.msg;
 
 import java.io.Serializable;
 

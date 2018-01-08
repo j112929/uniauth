@@ -17,6 +17,8 @@ public class CasUsernamePasswordCredential extends UsernamePasswordCredential {
   @NotNull
   @Size(min = 1, message = "required.tenancyCode")
   private String tenancyCode;
+  
+  private String validCode;
 
   /**
    * . 验证码
@@ -36,18 +38,19 @@ public class CasUsernamePasswordCredential extends UsernamePasswordCredential {
 
   public CasUsernamePasswordCredential(String userName, String password, String domain,
       String tenancy) {
-    this(userName, password, domain, tenancy, "");
+    this(userName, password, domain, tenancy, "", "");
   }
 
   /**
    * 构造一个CasUsernamePasswordCredential.
    */
   public CasUsernamePasswordCredential(String userName, String password, String domain,
-      String tenancyCode, String captcha) {
+      String tenancyCode, String captcha, String validCode) {
     super(userName, password);
     this.domain = domain;
     this.captcha = captcha;
     this.tenancyCode = tenancyCode;
+    this.validCode = validCode;
   }
 
   public String getDomain() {
@@ -83,4 +86,13 @@ public class CasUsernamePasswordCredential extends UsernamePasswordCredential {
   public void setTenancyCode(String tenancyCode) {
     this.tenancyCode = tenancyCode;
   }
+
+public String getValidCode() {
+	return validCode;
+}
+
+public void setValidCode(String validCode) {
+	this.validCode = validCode;
+}
+  
 }

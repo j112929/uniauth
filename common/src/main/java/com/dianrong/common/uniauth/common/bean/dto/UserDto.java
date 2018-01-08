@@ -50,6 +50,9 @@ public class UserDto extends TenancyBaseDto {
   private List<UserExtendValDto> userExtendValDtos;
   @ApiModelProperty("辅助字段,与userExtendValDtos内容一致")
   private Map<String, String> userExtendValMap;
+  @ApiModelProperty("没登记手机号的登陆次数，默认为3")
+  private Integer loginTimesNoPhone;
+  
 
   public List<UserExtendValDto> getUserExtendValDtos() {
     return userExtendValDtos;
@@ -260,4 +263,12 @@ public class UserDto extends TenancyBaseDto {
     this.failCount = failCount;
     return this;
   }
+
+public Integer getLoginTimesNoPhone() {
+	return loginTimesNoPhone;
+}
+
+public void setLoginTimesNoPhone(Integer loginTimesNoPhone) {
+	this.loginTimesNoPhone = loginTimesNoPhone;
+}
 }
