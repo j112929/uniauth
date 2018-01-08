@@ -8,16 +8,11 @@
     <p><spring:message code="screen.cookies.disabled.message" /></p>
 </div>
 
-<p><spring:message code="screen.welcome.security"/></p>
-
-<div class="content2" id="login">
-	<div class="error" hidden="hidden"><spring:message code="sms.input.error.content"/>
-		<img src="<%=path %>/images/image/false.png" />
-	</div>
-	<div class="logo">
-		<img src="<%=path %>/images/image/logo.png"/>
-	</div>
+<div class="box" id="login">
     <form:form method="post" id="fm1" commandName="${commandName}" htmlEscape="true">
+		<div class="error" hidden="hidden"><spring:message code="sms.input.error.content"/>
+			<img src="<%=path %>/images/image/false.png" />
+		</div>
         <form:errors path="*" id="msg" cssClass="errors" element="div" htmlEscape="false" />
 		<c:if test="${not empty param.dupsession}">
 			<p><font color="red"><spring:message code="screen.tips.session.dup" /></font></p><br>
@@ -25,7 +20,7 @@
 		
 		<!-- show login page title -->
 		<c:if test="${empty edituserinfo}">
-        	<h2><spring:message code="screen.welcome.instructions" /></h2>
+        	<%-- <h2><spring:message code="screen.welcome.instructions" /></h2> --%>
         </c:if>
         <c:if test="${not empty edituserinfo}">
         	<h2 class="text_decoration_none">
@@ -90,8 +85,8 @@
         <section class="row">
 			<label for="captcha"><spring:message code="screen.welcome.label.captcha" /></label>
 			<div class="captcha-class">
-			<input type="text" style="width: 50%;"   id="validCode" name="validCode" />
-			<input type="button" id="send-submit" class="getCode" style="float: right;width: 40%;border-radius: 2px;"   value="<spring:message code="sms.send.button.content"/>" onclick = "send()"/>
+			<input type="text" size="12" tabindex="3" id="validCode" name="validCode" />
+			<input type="button" size="12"   value="<spring:message code="sms.send.button.content"/>" onclick = "send()"/>
 			</div>
 		</section>
 
@@ -105,9 +100,9 @@
 						<section class="row">
 				            <label for="captcha"><spring:message code="screen.welcome.label.captcha" /></label>
 				            <div class="captcha-class">
-						            <input type="text" size="12" tabindex="3" id="captcha" name="captcha">
+						            <input type="text" size="12" tabindex="4" id="captcha" name="captcha">
 						    		<img alt="picture" src="<%=path %>/uniauth/verification/captcha" title="<spring:message code="screen.init.password.step1.content.verifycode.title"/>"  id="cas_login_captcha_change_img" >
-									 <a  href="javascript:void(0);" tabindex="4"  id="cas_login_captcha_change_a"><spring:message code="screen.welcome.button.captcha.change"/></a>
+									 <a  href="javascript:void(0);" tabindex="5"  id="cas_login_captcha_change_a"><spring:message code="screen.welcome.button.captcha.change"/></a>
 				            </div>
 				        </section>
 					<%
@@ -120,7 +115,7 @@
             <input type="hidden" name="execution" value="${flowExecutionKey}" />
             <input type="hidden" name="_eventId" value="submit" />
 
-            <input class="btn-submit  enable-after-init-success " style="background: #7fd36e;"  name="cas_submit"  disabled="disabled"  accesskey="l"  value="<spring:message code="screen.welcome.button.login" />"  tabindex="6"   id="btn_cas_submit"   type="button" />
+            <input class="btn-submit  enable-after-init-success"  name="cas_submit"  disabled="disabled"  accesskey="l"  value="<spring:message code="screen.welcome.button.login" />"  tabindex="6"   id="btn_cas_submit"   type="button" />
             <%-- <input class="btn-reset" name="reset" accesskey="c" value="<spring:message code="screen.welcome.button.clear" />" tabindex="7" type="reset" /> --%>
             
             <c:if test="${empty edituserinfo}">
@@ -145,6 +140,7 @@
 function send(){
 	var username = $('#username').val();
 	var tenancy_code = $('#btn_confirm_tenancy').val();
+	console.log(tenancy_code);
 	$.ajax({
 		type:'POST',
 		url:"/cas/v1/msg/send",
