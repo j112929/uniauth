@@ -136,8 +136,17 @@ $(function() {
 	// login submit
 	$('#btn_cas_submit').click(function(e){
 		e.preventDefault();  
+		//如果没点击发送验证码 ，则不允许登陆
+		var is_send = $("#sent").val();
+		var msg = $.i18n.prop('send.sms.check');
+		if(is_send != undefined){
+			//console.log("sent");
+		}else{
+			alert(msg);
+			return;
+		}
 		var loginForm = $('#login #fm1');
-		var input_tenancy = $("<input type='hidden' name='tenancyCode' />")
+		var input_tenancy = $("<input type='hidden' name='tenancyCode' />");
 	    input_tenancy.attr('value', cookieOperation.getTenancyCode());
 		loginForm.append(input_tenancy);
 		loginForm.submit();

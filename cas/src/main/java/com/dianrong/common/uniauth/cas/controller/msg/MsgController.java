@@ -92,7 +92,7 @@ public class MsgController {
 				userInfoManageService.updateLoginTimesById(userinfo.getId(), times);
 				session.setAttribute("loginTimes", times);
 				log.warn("未登记手机号用户进行登陆！");
-				map.put("code", 1);
+				map.put("code", 2);
 				return Response.success(map);
 			}else{
 				log.warn("未登记手机号用户进行登陆,请联系系统管理员设置免验证码登陆次数！");

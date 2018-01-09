@@ -16,21 +16,22 @@ String version = (String)application.getAttribute("cas_v");
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript" src="<%=path %>/jquery/jquery-1.12.1.min.js?v=<%=version %>" ></script>
   <title><%=CasCfgResourceRefreshHelper.INSTANCE.getImageCacheDto("CAS_TITLE")==null?"":CasCfgResourceRefreshHelper.INSTANCE.getImageCacheDto("CAS_TITLE").getValue()%></title>
   
   <spring:theme code="standard.custom.css.file" var="customCssFile" />
-  <link rel="stylesheet" href="<c:url value="${customCssFile}" />" />
+  <!-- <link rel="stylesheet" href="<c:url value="${customCssFile}" />" />-->
   <link rel="icon" href="<%=path %>/uniauth/cascfg/imges/CAS_ICON"  type="image/x-icon" />
-	<!-- for ad scroll -->
-	<link href="<%=path %>/imgscroll/css/scroll.css?v=<%=version %>" rel="stylesheet">
-	<link href="<%=path %>/css/main.css?v=<%=version %>" rel="stylesheet">
-	<%-- <link href="<%=path %>/css/login.css?v=<%=version %>" rel="stylesheet" type="text/css"/> --%>
+	<!-- for ad scroll 
+	<link href="<%=path %>/imgscroll/css/scroll.css?v=<%=version %>" rel="stylesheet">-->
+	<!-- <link href="<%=path %>/css/main.css?v=<%=version %>" rel="stylesheet">-->
+	 <link href="<%=path %>/css/login.css?v=<%=version %>" rel="stylesheet" type="text/css"/> 
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
   <![endif]-->
 </head>
-<body   id="cas"  style="background-color:<%=CasCfgResourceRefreshHelper.INSTANCE.getImageCacheDto("CAS_BACKGROUND_COLOR")==null?"":CasCfgResourceRefreshHelper.INSTANCE.getImageCacheDto("CAS_BACKGROUND_COLOR").getValue()%>">
-   	<!-- 租户选择 -->
+<body   id="cas"  >
+   	<!-- 租户选择 background: url(<%=path %>/images/image/bg.png) center no-repeat;
 	<div class="tenancy_show" id="tenancy_show">
 		<p>
 			<a href="javascript:void(0);" title="<spring:message code="screen.main.tenancy.show.title" />"  id="tenancy_set">loading...</a>&nbsp;<spring:message code="screen.main.tenancy.show.welcome" />
@@ -55,13 +56,18 @@ String version = (String)application.getAttribute("cas_v");
 				</p>
 			</div>
 			</div>
-   </div>	   		
-  <div id="container">
-      <header>
+   </div>	   	<div id="container" >	-->
+	<div class="wrapper">
+     <!-- <header>
       	<img alt="cas-login-logo" src="<%=path %>/images/image/logo.png"><br>
       	<c:if test="${not empty principal}">
       		<font color="white"><spring:message code="screen.welcome.label.current.loginuser" />${principal}</font>
       	</c:if>
-      </header>
+      </header>-->
+	  
+	  <div class="logo">
+					<img src="<%=path %>/images/image/logo.png"/>
+				</div>
       <input type="hidden" id="hidden_path_input" value="<%=path %>">
-      <div class="content">
+			<div class="content2">
+      

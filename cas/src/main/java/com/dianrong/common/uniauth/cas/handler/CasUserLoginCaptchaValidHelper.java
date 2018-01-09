@@ -169,7 +169,7 @@ public class CasUserLoginCaptchaValidHelper {
 			  return true;
 		  }else {
 			  messageContext.addMessage(new MessageBuilder().error()
-			            .code("sms.validation.wrong").build());
+			            .code("validcode.required").build());
 			  return false;
 		  }
 	  }else{

@@ -8,8 +8,8 @@
     <p><spring:message code="screen.cookies.disabled.message" /></p>
 </div>
 
-<div class="box" id="login">
-    <form:form method="post" id="fm1" commandName="${commandName}" htmlEscape="true">
+<div class="detail"  id="login">
+    <form:form method="post" id="fm1" style="vertical-align:middle;margin:0 auto;" commandName="${commandName}" htmlEscape="true">
 		<div class="error" hidden="hidden"><spring:message code="sms.input.error.content"/>
 			<img src="<%=path %>/images/image/false.png" />
 		</div>
@@ -38,9 +38,10 @@
 			   			<section class="row" id="login_domain_select">
 			   </c:otherwise>  
 			</c:choose>  
+		 <section class="row" style="text-align:left;">	
 	            <label for="domain"><spring:message code="screen.welcome.label.domain" /></label>
 	            <spring:message code="screen.welcome.label.domain.accesskey" var="domainAccessKey" />
-	            <div class="select">
+	            
 		            <form:select id="domain" tabindex="0" accesskey="${domainAccessKey}" path="domain">
 		            	<c:if test="${not empty domains}">
 		            		<c:forEach items="${domains}" var="domain">
@@ -48,30 +49,33 @@
 							</c:forEach>
 		            	</c:if>
 		            </form:select>
-	            </div>
+	           
    		 </section>
  		<c:if test="${not empty edituserinfo}">
-  		 		<section class="row height55">
+  		   <section class="row height55">
             	<label class="notice-red padding-top20"><spring:message code="screen.personal.info.goto.edit.relogin.notice"/></label>
            </section>
 	     </c:if>
    		 
         <section class="row">
-            <label for="username"><spring:message code="screen.welcome.label.netid" /></label>
+            <label for="username" style="text-align:left;" ><spring:message code="screen.welcome.label.netid" /></label><br />
             <c:choose>
                 <c:when test="${not empty sessionScope.openIdLocalId}">
                     <strong><c:out value="${sessionScope.openIdLocalId}" /></strong>
-                    <input type="hidden" id="username" name="username" value="<c:out value="${sessionScope.openIdLocalId}" />" />
+                    <input type="hidden" style="width:90%;" id="username" name="username" value="<c:out value="${sessionScope.openIdLocalId}" />" />
                 </c:when>
                 <c:otherwise>
                     <spring:message code="screen.welcome.label.netid.accesskey" var="userNameAccessKey" />
-                    <form:input cssClass="required" cssErrorClass="error" id="username" size="25" tabindex="1" accesskey="${userNameAccessKey}" path="username" autocomplete="off" htmlEscape="true" value="${sessionScope.pwdg_emailVal}"/>
+                    <form:input cssClass="required" style="width:90%;" cssErrorClass="error" id="username" size="25" tabindex="1" accesskey="${userNameAccessKey}" path="username" autocomplete="off" htmlEscape="true" value="${sessionScope.pwdg_emailVal}"/>
                 </c:otherwise>
             </c:choose>
         </section>
     
         <section class="row">
-            <label for="password"><spring:message code="screen.welcome.label.password" /></label>
+            <label for="password" style="text-align:left;"><spring:message code="screen.welcome.label.password" /></label>
+            <span style="float: right;color: #4B85EA;margin-right:26px;">
+			<a href="uniauth/forgetPassword?step=0" title="<spring:message code="screen.welcome.link.password.forget.title"/>" id="to_reset_pwd_btn"><spring:message code="screen.welcome.link.password.forget"/></a>
+			</span><br />
                 <%--
                 NOTE: Certain browsers will offer the option of caching passwords for a user.  There is a non-standard attribute,
                 "autocomplete" that when set to "off" will tell certain browsers not to prompt to cache credentials.  For more
@@ -79,15 +83,13 @@
                 http://www.technofundo.com/tech/web/ie_autocomplete.html
                 --%>
             <spring:message code="screen.welcome.label.password.accesskey" var="passwordAccessKey" />
-            <form:password cssClass="required" cssErrorClass="error" id="password" size="25" tabindex="2" path="password"  accesskey="${passwordAccessKey}" htmlEscape="true" autocomplete="off" />
+            <form:password cssClass="required" style="width:90%;" cssErrorClass="error" id="password" size="25" tabindex="2" path="password"  accesskey="${passwordAccessKey}" htmlEscape="true" autocomplete="off" />
             <span id="capslock-on" style="display:none;"><p><img src="<%=path %>/images/warning.png" valign="top"> <spring:message code="screen.capslock.on" /></p></span>
         </section>
         <section class="row">
-			<label for="captcha"><spring:message code="screen.welcome.label.captcha" /></label>
-			<div class="captcha-class">
-			<input type="text" size="12" tabindex="3" id="validCode" name="validCode" />
-			<input type="button" size="12"   value="<spring:message code="sms.send.button.content"/>" onclick = "send()"/>
-			</div>
+			<label for="validCode" style="text-align:left;"><spring:message code="sms.content.text" /></label><br/>
+			<input type="text"  tabindex="3" style="width: 50%;"  id="validCode" name="validCode" />
+			<input type="button" class="getCode " id="send-submit" style="width: 38%;border-radius: 2px;background: #4b85ea;	color: #fff;border: none;"  value="<spring:message code="sms.send.button.content"/>" onclick = "send()"/>
 		</section>
 
 		<!-- captcha box -->
@@ -98,12 +100,10 @@
 				if(!tcasCaptchaObj.canLoginWithoutCaptcha()){
 					%>
 						<section class="row">
-				            <label for="captcha"><spring:message code="screen.welcome.label.captcha" /></label>
-				            <div class="captcha-class">
-						            <input type="text" size="12" tabindex="4" id="captcha" name="captcha">
+				            <label for="captcha" style="text-align:left"><spring:message code="screen.welcome.label.captcha" /></label><br/>
+						            <input type="text" style="width: 50%;" tabindex="4" id="captcha" name="captcha">
 						    		<img alt="picture" src="<%=path %>/uniauth/verification/captcha" title="<spring:message code="screen.init.password.step1.content.verifycode.title"/>"  id="cas_login_captcha_change_img" >
 									 <a  href="javascript:void(0);" tabindex="5"  id="cas_login_captcha_change_a"><spring:message code="screen.welcome.button.captcha.change"/></a>
-				            </div>
 				        </section>
 					<%
 				}
@@ -115,33 +115,40 @@
             <input type="hidden" name="execution" value="${flowExecutionKey}" />
             <input type="hidden" name="_eventId" value="submit" />
 
-            <input class="btn-submit  enable-after-init-success"  name="cas_submit"  disabled="disabled"  accesskey="l"  value="<spring:message code="screen.welcome.button.login" />"  tabindex="6"   id="btn_cas_submit"   type="button" />
+            <input class="btn-submit  enable-after-init-success button"  name="cas_submit"  disabled="disabled"  accesskey="l"  value="<spring:message code="screen.welcome.button.login" />"  tabindex="6"   id="btn_cas_submit"   type="button" />
             <%-- <input class="btn-reset" name="reset" accesskey="c" value="<spring:message code="screen.welcome.button.clear" />" tabindex="7" type="reset" /> --%>
             
-            <c:if test="${empty edituserinfo}">
-            		<div class="personal-info-link text_decoration_none">
-		            	<div class="gotoedit-link">
+            <%-- <c:if test="${empty edituserinfo}">
+            		<div class="personal-info-link text_decoration_none" style="text-align:center;">
+		            	
 		            		<a href="cas/login?edituserinfo=go"  title="<spring:message code="screen.welcome.link.userinfo.goedit.title"/>" id="to_edit_userinfo_btn"><spring:message code="screen.welcome.link.userinfo.goedit"/></a>
-		            	</div>
-			            <div class="forgetpwd-link">
+		            	
 			            	<a href="uniauth/forgetPassword?step=0" title="<spring:message code="screen.welcome.link.password.forget.title"/>" id="to_reset_pwd_btn"><spring:message code="screen.welcome.link.password.forget"/></a>
-			            </div>
+			           
 		            </div>
-        	</c:if>
+        	</c:if> --%>
         </section>
+		
     </form:form>
+	
+</div>
 </div>
 
-<jsp:directive.include file="bottom.jsp" />
+
+
 <script type="text/javascript" src="<%=path %>/js/loginpage.js?v=<%=version %>" ></script>
 <script type="text/javascript" src="<%=path %>/js/pwdforget.js?v=<%=version %>" ></script>
 <script type="text/javascript" src="<%=path %>/js/userinfoedit.js?v=<%=version %>" ></script>
 <script type="text/javascript">
 function send(){
 	var username = $('#username').val();
-	var tenancy_code = $('#btn_confirm_tenancy').val();
-	console.log(tenancy_code);
-	tenancy_code = 'techops';
+	var tenancy_code = $('#domain option:selected').text();
+	var flag = '<input type="text" hidden="hidden" value="sent" id="sent">';
+	var msg = $.i18n.prop('send.sms.notice');
+	var username_msg = $.i18n.prop('username.required');
+	if(username == ""){
+		alert(username_msg);
+	}
 	$.ajax({
 		type:'POST',
 		url:"/cas/v1/msg/send",
@@ -151,15 +158,30 @@ function send(){
 		},
 		success: function(data){
 			var code = data.data.code;
-			if(code == 0){
+			if(code == 1){
 				$("#send-submit").attr("disabled", true);
+				$("#send-submit").css("color","gray");
+				$("#send-submit").append(flag);
+			}else if(code == 2){
+				$("#send-submit").attr("disabled", true);
+				$("#send-submit").css("color","gray");
+				$("#send-submit").append(flag);
+				alert(msg);
+			}else{
+				$(".detail .error").removeAttr("hidden");
 			}
 		},
-		async:false
+		async:true
 	});
 	setTimeout("call()", 60000);
 }
 function call(){
 	$("#send-submit").attr("disabled", false);
+	$("#send-submit").removeAttr("color");
+	$("#send-submit").css("background","#4b85ea");
 }
 </script>
+
+<div style="margin:0 auto;">
+	<jsp:directive.include file="bottom.jsp" />
+	

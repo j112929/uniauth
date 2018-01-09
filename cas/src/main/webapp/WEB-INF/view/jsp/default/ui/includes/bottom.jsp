@@ -1,4 +1,4 @@
-</div> <!-- END #content -->
+ <!-- </div> END #content -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="com.dianrong.common.uniauth.cas.helper.CasCfgResourceRefreshHelper"%>       
 <%@page import="com.dianrong.common.uniauth.cas.util.I18nLanguageConstantUtil"%> 
@@ -8,7 +8,7 @@
 String bpath = request.getContextPath(); 
 String bversion = (String)application.getAttribute("cas_v");
 %>   
-<footer>
+<footer style="text-align:center;">
     <div id="copyright">
         <p><%=CasCfgResourceRefreshHelper.INSTANCE.getImageCacheDto("CAS_ALL_RIGHT")==null?"":CasCfgResourceRefreshHelper.INSTANCE.getImageCacheDto("CAS_ALL_RIGHT").getValue() %></p>
     </div>

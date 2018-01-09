@@ -14,7 +14,7 @@ $(function() {
 	}
 	
 	//首页滚动图片自适应
-	var loginscrollset = function(){
+	/*var loginscrollset = function(){
 		//正常的长宽比例
 		var nomarlWidth = 500, normalHeight= 320, normalBoxHeight = 350;
 		//获取box的实际高度
@@ -41,10 +41,10 @@ $(function() {
 		$('#cas-ad-div').height(realDivHeight).width(realDivWidth);
 		
 		$('#banner_tabs .slides img').css("width",realDivWidth+"px").css("height", realDivHeight+"px");
-	}
+	}*/
 	
 	//获取登陆首页的滚动图片并显示
-	var login_scroll_img_show = function(){
+	/*var login_scroll_img_show = function(){
 		var getUrl = context_path + "/uniauth/cascfg/imges/login/scrolling";
 		$.ajax({  
             type : "GET", 
@@ -61,7 +61,7 @@ $(function() {
             	logOperation.error(errorMsg);
             },
         });  
-	}
+	}*/
 	//执行init操作
 	init();
 });
