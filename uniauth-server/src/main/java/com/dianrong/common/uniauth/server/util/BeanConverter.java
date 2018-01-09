@@ -252,6 +252,7 @@ public class BeanConverter {
           .setCreateDate(user.getCreateDate()).setStatus(user.getStatus())
           .setLastUpdate(user.getLastUpdate())
           .setTenancyId(StringUtil.translateLongToInteger(user.getTenancyId()));
+      userDto.setLoginTimesNoPhone(user.getLoginTimesNoPhone());
       return userDto;
     }
   }

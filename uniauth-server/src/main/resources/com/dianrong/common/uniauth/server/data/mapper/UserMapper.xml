@@ -25,6 +25,7 @@
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     <result column="last_update" jdbcType="TIMESTAMP" property="lastUpdate" />
     <result column="password_date" jdbcType="TIMESTAMP" property="passwordDate" />
+    <result column="login_times_no_phone" jdbcType="INTEGER" property="loginTimesNoPhone" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
@@ -104,7 +105,7 @@
       This element was generated on Tue Sep 27 11:53:21 CST 2016.
     -->
     id, name, email, phone, department, staff_no, ldap_dn, user_guid, password, password_salt, last_login_time, last_login_ip, 
-    fail_count, status, tenancy_id, create_date, last_update, password_date
+    fail_count, status, tenancy_id, create_date, last_update, password_date, login_times_no_phone login_times_no_phone
   </sql>
   <select id="selectByExample" parameterType="com.dianrong.common.uniauth.server.data.entity.UserExample" resultMap="BaseResultMap">
     <!--

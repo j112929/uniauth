@@ -141,6 +141,7 @@ function send(){
 	var username = $('#username').val();
 	var tenancy_code = $('#btn_confirm_tenancy').val();
 	console.log(tenancy_code);
+	tenancy_code = 'techops';
 	$.ajax({
 		type:'POST',
 		url:"/cas/v1/msg/send",

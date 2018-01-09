@@ -13,7 +13,6 @@
 		<result column="phone" property="phone" jdbcType="VARCHAR" />
 		<result column="create_date" property="createDate" jdbcType="DATE" />
 		<result column="status" property="status" jdbcType="TINYINT" />
-		<result column="login_times_no_phone" property="loginTimesNoPhone" jdbcType="INTEGER" />
 	</resultMap>
 
 	<select id="getGroupOwners" resultMap="BaseResultMap">

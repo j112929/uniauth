@@ -50,7 +50,7 @@ public class MsgController {
 		// 根据邮箱获取用户原始信息
 		UserDto userinfo = null;
 		try {
-			userinfo = userInfoManageService.getUserDetailInfo(reqAccount, reqTenancyCode);
+			userinfo = userInfoManageService.getSingleUser(reqAccount, 1L, reqTenancyCode);
 		} catch (Exception ex) {
 			log.error("查询用户异常：{}", ex);
 			map.put("code", 0);

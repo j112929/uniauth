@@ -162,4 +162,17 @@ public class UserInfoManageService extends BaseService {
 	  userParam.setLoginTimesNoPhone(loginTimes);
 	  uarwFacade.getUserRWResource().updateLoginTimesById(userParam);
   }
+  
+  public UserDto getSingleUser(String email, Long tenancyId, String tenancyCode){
+	  UserParam userParam = new UserParam();
+	  userParam.setEmail(email);
+	  userParam.setTenancyId(tenancyId);
+	  userParam.setTenancyCode(tenancyCode);
+	  Response<UserDto> resp = uarwFacade.getUserRWResource().getSingleUser(userParam);
+	  UserDto userDto = new UserDto();
+	  if(resp != null && resp.getData() != null){
+		  userDto = resp.getData();
+	  }
+	  return userDto;
+  }
 }
