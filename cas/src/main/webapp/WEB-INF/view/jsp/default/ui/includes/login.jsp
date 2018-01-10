@@ -10,7 +10,7 @@
 
 <div class="detail"  id="login">
     <form:form method="post" id="fm1" style="vertical-align:middle;margin:0 auto;" commandName="${commandName}" htmlEscape="true">
-		<div class="error" hidden="hidden"><spring:message code="sms.input.error.content"/>
+		<div class="error2" hidden="hidden">
 			<img src="<%=path %>/images/image/false.png" />
 		</div>
         <form:errors path="*" id="msg" cssClass="errors" element="div" htmlEscape="false" />
@@ -146,9 +146,20 @@ function send(){
 	var flag = '<input type="text" hidden="hidden" value="sent" id="sent">';
 	var msg = $.i18n.prop('send.sms.notice');
 	var username_msg = $.i18n.prop('username.required');
-	if(username == ""){
-		alert(username_msg);
+	var is_have = $('#msg').val();
+	if(is_have != undefined || is_have == ""){
+		$('#msg').remove();
+		$(".error2").attr("hidden","hidden");
 	}
+	if(username == ""){
+		$(".error2").removeAttr("hidden");
+		$(".error2").append('<p id="msg">'+username_msg+'</p>');
+	}
+	var msg0 = $.i18n.prop('validCode.send.error');
+	var msg3 = $.i18n.prop('validCode.check.error');
+	var msg4 = $.i18n.prop('validCode.query.user.error');
+	var msg5 = $.i18n.prop('validCode.user.not.found');
+	var msg6 = $.i18n.prop('validCode.put.session.error');
 	$.ajax({
 		type:'POST',
 		url:"/cas/v1/msg/send",
@@ -158,6 +169,7 @@ function send(){
 		},
 		success: function(data){
 			var code = data.data.code;
+			
 			if(code == 1){
 				$("#send-submit").attr("disabled", true);
 				$("#send-submit").css("color","gray");
@@ -168,7 +180,18 @@ function send(){
 				$("#send-submit").append(flag);
 				alert(msg);
 			}else{
-				$(".detail .error").removeAttr("hidden");
+				$(".error2").removeAttr("hidden");
+				if(code == 0){
+					$(".error2").append('<p id="msg">'+msg0+'</p>');
+				}else if(code == 3){
+					$(".error2").append('<p id="msg">'+msg3+'</p>');
+				}else if(code == 4){
+					$(".error2").append('<p id="msg">'+msg4+'</p>');
+				}else if(code == 5){
+					$(".error2").append('<p id="msg">'+msg5+'</p>');
+				}else if(code == 6){
+					$(".error2").append('<p id="msg">'+msg6+'</p>');
+				}
 			}
 		},
 		async:true

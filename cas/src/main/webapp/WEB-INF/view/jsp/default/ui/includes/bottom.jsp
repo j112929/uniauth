@@ -25,8 +25,8 @@ String bversion = (String)application.getAttribute("cas_v");
     </div>
 </footer>
 </div> <!-- END #container -->
-<script type="text/javascript" src="<%=bpath %>/jquery/jquery-1.12.1.min.js?v=<%=bversion %>" ></script>
-<script type="text/javascript" src="jquery/jquery.i18n.properties-min-1.0.9.js?v=<%=bversion %>" ></script>
+<%-- <script type="text/javascript" src="<%=bpath %>/jquery/jquery-1.12.1.min.js?v=<%=bversion %>" ></script>
+<script type="text/javascript" src="jquery/jquery.i18n.properties-min-1.0.9.js?v=<%=bversion %>" ></script> --%>
 <script type="text/javascript" src="https://cdn.bootcss.com/jqueryui/1.11.4/jquery-ui.min.js?v=<%=bversion %>" ></script>
 <script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js?v=<%=bversion %>" ></script>
 

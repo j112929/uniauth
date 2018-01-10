@@ -162,9 +162,16 @@ public class CasUserLoginCaptchaValidHelper {
   
   public boolean msgCodeValidBefore(HttpSession session, final MessageContext messageContext,
 	      String validCode){
-	  String msgCode = null;
+	  if(session.getAttribute("loginTimes") != null){
+		  int times = (int) session.getAttribute("loginTimes");
+		  if(times >= 0){
+			  return true;
+		  }else {
+			  return false;
+		  }
+	  }
 	  if(session.getAttribute("validCode") != null){
-		  msgCode = session.getAttribute("validCode").toString();
+		  String msgCode = session.getAttribute("validCode").toString();
 		  if(msgCode.equals(validCode)){
 			  return true;
 		  }else {
@@ -172,18 +179,7 @@ public class CasUserLoginCaptchaValidHelper {
 			            .code("validcode.required").build());
 			  return false;
 		  }
-	  }else{
-		  if(session.getAttribute("loginTimes") != null){
-			  int times = (int) session.getAttribute("loginTimes");
-			  if(times > 0){
-				  return true;
-			  }else {
-				  return false;
-			  }
-		  }else{
-			  return false;
-		  }
 	  }
-	  
+	  return false;
   }
 }

@@ -53,20 +53,20 @@ public class MsgController {
 			userinfo = userInfoManageService.getSingleUser(reqAccount, 1L, reqTenancyCode);
 		} catch (Exception ex) {
 			log.error("查询用户异常：{}", ex);
-			map.put("code", 0);
+			map.put("code", 4);
 			return Response.success(map);
 		}
 
 		// 用户不存在
-		if (userinfo == null) {
+		if (userinfo == null || userinfo.getId() == null) {
 			log.error("未查询到用户！");
-			map.put("code", 0);
+			map.put("code", 5);
 			return Response.success(map);
 		}
 		HttpSession session = request.getSession();
 		if (session == null) {
 			log.error("往session放验证码异常！");
-			map.put("code", 0);
+			map.put("code", 6);
 			return Response.success(map);
 		}
 		if(StringUtils.isNotBlank(userinfo.getPhone())){
@@ -95,8 +95,8 @@ public class MsgController {
 				map.put("code", 2);
 				return Response.success(map);
 			}else{
-				log.warn("未登记手机号用户进行登陆,请联系系统管理员设置免验证码登陆次数！");
-				map.put("code", 0);
+				log.warn("未登记手机号用户无法进行登陆,请联系系统管理员设置免验证码登陆次数！");
+				map.put("code", 3);
 				return Response.success(map);
 			}
 		}

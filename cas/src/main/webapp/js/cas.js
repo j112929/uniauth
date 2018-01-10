@@ -136,13 +136,32 @@ $(function() {
 	// login submit
 	$('#btn_cas_submit').click(function(e){
 		e.preventDefault();  
+		var username = $("#username").val();
+		var password = $("#password").val();
+		var u_msg = $.i18n.prop('username.required');
+		var p_msg = $.i18n.prop('password.required');
+		
 		//如果没点击发送验证码 ，则不允许登陆
 		var is_send = $("#sent").val();
 		var msg = $.i18n.prop('send.sms.check');
-		if(is_send != undefined){
-			//console.log("sent");
-		}else{
-			alert(msg);
+		var is_have = $('#msg').val();
+		if(is_have != undefined || is_have == ""){
+			$('#msg').remove();
+			$(".error2").attr("hidden","hidden");
+		}
+		if(username == ""){
+			$(".error2").removeAttr("hidden");
+			$(".error2").append('<p id="msg">'+u_msg+'</p>');
+			return;
+		}
+		if(password == ""){
+			$(".error2").removeAttr("hidden");
+			$(".error2").append('<p id="msg">'+p_msg+'</p>');
+			return;
+		}
+		if(is_send == undefined){
+			$(".error2").removeAttr("hidden");
+			$(".error2").append('<p id="msg">'+msg+'</p>');
 			return;
 		}
 		var loginForm = $('#login #fm1');

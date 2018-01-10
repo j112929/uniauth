@@ -17,6 +17,7 @@ String version = (String)application.getAttribute("cas_v");
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script type="text/javascript" src="<%=path %>/jquery/jquery-1.12.1.min.js?v=<%=version %>" ></script>
+  <script type="text/javascript" src="<%=path %>/jquery/jquery.i18n.properties-min-1.0.9.js?v=<%=version %>" ></script>
   <title><%=CasCfgResourceRefreshHelper.INSTANCE.getImageCacheDto("CAS_TITLE")==null?"":CasCfgResourceRefreshHelper.INSTANCE.getImageCacheDto("CAS_TITLE").getValue()%></title>
   
   <spring:theme code="standard.custom.css.file" var="customCssFile" />
