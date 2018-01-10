@@ -66,9 +66,7 @@ String version = (String)application.getAttribute("cas_v");
       	</c:if>
       </header>-->
 	  
-	  <div class="logo">
-					<img src="<%=path %>/images/image/logo.png"/>
-				</div>
+	  <div style="height: 8rem;"></div>
       <input type="hidden" id="hidden_path_input" value="<%=path %>">
 			<div class="content2">
       

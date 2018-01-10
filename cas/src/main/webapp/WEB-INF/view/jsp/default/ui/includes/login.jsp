@@ -10,6 +10,9 @@
 
 <div class="detail"  id="login">
     <form:form method="post" id="fm1" style="vertical-align:middle;margin:0 auto;" commandName="${commandName}" htmlEscape="true">
+		<div class="logo">
+			<img src="<%=path %>/images/image/logo.png"/>
+		</div>
 		<div class="error2" hidden="hidden">
 			<img src="<%=path %>/images/image/false.png" />
 		</div>
@@ -62,11 +65,11 @@
             <c:choose>
                 <c:when test="${not empty sessionScope.openIdLocalId}">
                     <strong><c:out value="${sessionScope.openIdLocalId}" /></strong>
-                    <input type="hidden" style="width:90%;" id="username" name="username" value="<c:out value="${sessionScope.openIdLocalId}" />" />
+                    <input type="hidden" style="width:90%;height:25px;" id="username" name="username" value="<c:out value="${sessionScope.openIdLocalId}" />" />
                 </c:when>
                 <c:otherwise>
                     <spring:message code="screen.welcome.label.netid.accesskey" var="userNameAccessKey" />
-                    <form:input cssClass="required" style="width:90%;" cssErrorClass="error" id="username" size="25" tabindex="1" accesskey="${userNameAccessKey}" path="username" autocomplete="off" htmlEscape="true" value="${sessionScope.pwdg_emailVal}"/>
+                    <form:input cssClass="required" style="width:90%;height:25px;" cssErrorClass="error" id="username" size="25" tabindex="1" accesskey="${userNameAccessKey}" path="username" autocomplete="off" htmlEscape="true" value="${sessionScope.pwdg_emailVal}"/>
                 </c:otherwise>
             </c:choose>
         </section>
@@ -83,13 +86,13 @@
                 http://www.technofundo.com/tech/web/ie_autocomplete.html
                 --%>
             <spring:message code="screen.welcome.label.password.accesskey" var="passwordAccessKey" />
-            <form:password cssClass="required" style="width:90%;" cssErrorClass="error" id="password" size="25" tabindex="2" path="password"  accesskey="${passwordAccessKey}" htmlEscape="true" autocomplete="off" />
+            <form:password cssClass="required" style="width:90%;height:25px;" cssErrorClass="error" id="password" size="25" tabindex="2" path="password"  accesskey="${passwordAccessKey}" htmlEscape="true" autocomplete="off" />
             <span id="capslock-on" style="display:none;"><p><img src="<%=path %>/images/warning.png" valign="top"> <spring:message code="screen.capslock.on" /></p></span>
         </section>
         <section class="row">
 			<label for="validCode" style="text-align:left;"><spring:message code="sms.content.text" /></label><br/>
-			<input type="text"  tabindex="3" style="width: 50%;"  id="validCode" name="validCode" />
-			<input type="button" class="getCode " id="send-submit" style="width: 38%;border-radius: 2px;background: #4b85ea;	color: #fff;border: none;"  value="<spring:message code="sms.send.button.content"/>" onclick = "send()"/>
+			<input type="text"  tabindex="3" style="width: 50%;height:25px;"  id="validCode" name="validCode" />
+			<input type="button" class="getCode " id="send-submit" style="width: 38%;height:30px;border-radius: 2px;background: #4b85ea;	color: #fff;border: none;"  value="<spring:message code="sms.send.button.content"/>" onclick = "send()"/>
 		</section>
 
 		<!-- captcha box -->
@@ -101,7 +104,7 @@
 					%>
 						<section class="row">
 				            <label for="captcha" style="text-align:left"><spring:message code="screen.welcome.label.captcha" /></label><br/>
-						            <input type="text" style="width: 50%;" tabindex="4" id="captcha" name="captcha">
+						            <input type="text" style="width: 50%;height:25px;" tabindex="4" id="captcha" name="captcha">
 						    		<img alt="picture" src="<%=path %>/uniauth/verification/captcha" title="<spring:message code="screen.init.password.step1.content.verifycode.title"/>"  id="cas_login_captcha_change_img" >
 									 <a  href="javascript:void(0);" tabindex="5"  id="cas_login_captcha_change_a"><spring:message code="screen.welcome.button.captcha.change"/></a>
 				        </section>
@@ -194,15 +197,46 @@ function send(){
 				}
 			}
 		},
-		async:true
+		async:false
 	});
-	setTimeout("call()", 60000);
+	//setTimeout("call()", 60000);
+	var obj = $('#send-submit');
+	settime(obj);
 }
 function call(){
 	$("#send-submit").attr("disabled", false);
 	$("#send-submit").removeAttr("color");
 	$("#send-submit").css("background","#4b85ea");
 }
+var countdown=60;
+function settime(obj) { //发送验证码倒计时
+	var button_msg_0 = $.i18n.prop('button.content');
+	var button_msg_1 = $.i18n.prop('button.wait.content');
+	 
+    if (countdown == 0) { 
+        obj.attr('disabled',false); 
+        //obj.removeattr("disabled"); 
+        $("#send-submit").css("color", "white");
+        obj.val(button_msg_0);
+        countdown = 60; 
+        return;
+    } else { 
+        obj.attr('disabled',true);
+        obj.val("(" + countdown + ")"+button_msg_1);
+        countdown--; 
+    } 
+    
+setTimeout(function() { 
+    settime(obj);
+    }, 1000); 
+}
+$(".error2").click(function(){
+  $('#msg').remove();
+  $(".error2").attr("hidden","hidden");
+});
+$(".errors").click(function(){
+  $('#msg').remove();
+});	
 </script>
 
 <div style="margin:0 auto;">
