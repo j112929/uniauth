@@ -91,8 +91,8 @@
         </section>
         <section class="row">
 			<label for="validCode" style="text-align:left;"><spring:message code="sms.content.text" /></label><br/>
-			<input type="text"  tabindex="3" style="width: 50%;height:25px;"  id="validCode" name="validCode" />
-			<input type="button" class="getCode " id="send-submit" style="width: 38%;height:30px;border-radius: 2px;background: #4b85ea;	color: #fff;border: none;"  value="<spring:message code="sms.send.button.content"/>" onclick = "send()"/>
+			<input type="text"  tabindex="3" style="width: 50%;height:25px;vertical-align:middle;"  id="validCode" name="validCode" />
+			<input type="button" class="getCode " id="send-submit" style="width: 38%;height:29px;vertical-align:middle;background: #4b85ea;	color: #fff;border: none;"  value="<spring:message code="sms.send.button.content"/>" onclick = "send()"/>
 		</section>
 
 		<!-- captcha box -->
@@ -104,9 +104,9 @@
 					%>
 						<section class="row">
 				            <label for="captcha" style="text-align:left"><spring:message code="screen.welcome.label.captcha" /></label><br/>
-						            <input type="text" style="width: 50%;height:25px;" tabindex="4" id="captcha" name="captcha">
-						    		<img alt="picture" src="<%=path %>/uniauth/verification/captcha" title="<spring:message code="screen.init.password.step1.content.verifycode.title"/>"  id="cas_login_captcha_change_img" >
-									 <a  href="javascript:void(0);" tabindex="5"  id="cas_login_captcha_change_a"><spring:message code="screen.welcome.button.captcha.change"/></a>
+						            <input type="text" style="width: 50%;height:25px;vertical-align:middle;" tabindex="4" id="captcha" name="captcha">
+						    		<img alt="picture" style="width:38%;height:29px;vertical-align:middle;" src="<%=path %>/uniauth/verification/captcha" title="<spring:message code="screen.init.password.step1.content.verifycode.title"/>"  id="cas_login_captcha_change_img" >
+									 <%-- <a  href="javascript:void(0);" tabindex="5"  id="cas_login_captcha_change_a"><spring:message code="screen.welcome.button.captcha.change"/></a> --%>
 				        </section>
 					<%
 				}
