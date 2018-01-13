@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,10 +27,14 @@ public class SMSService {
 		
 	private static final Logger logger = LoggerFactory.getLogger(SMSService.class);
 
-    
-//    @Value("${com.shenmajr.message.send}")
-    private String url = "http://message.sit01.shenmajr.com/";
-
+	/**
+	 * . zk配置bean
+	 */
+	@Resource(name = "uniauthConfig")
+	private Map<String, String> allZkNodeMap;
+//    private String url = "http://message.sit01.shenmajr.com/";//test
+//    private String url = "http://message.shenmajr.com/";//pro
+	private String url = "";
     
 
 	public MessageResponse sendMessage(MessageVaildCodeRequest messageVaildCodeRequest) {
@@ -37,9 +43,7 @@ public class SMSService {
          */
         MessageResponse messageResponse = null;
         String result = "";
-//        String messageUrl =  url+ "send";
         try {
-//            logger.info("accessUrl = {}", messageUrl);
             logger.info("调用短信接口开始,输入参数：{}", JSONObject.toJSONString(messageVaildCodeRequest));
             /**
              * 调用webclient类发送请求并接收返回结果
@@ -89,10 +93,15 @@ public class SMSService {
      */
     public String sendMsg(Map<String, String> reqDTO) throws Exception {
     	logger.info("短信发送参数:{}", JSON.toJSONString(reqDTO));
-    	logger.info("accessUrl = {}", url+"send");
-    	String ret = HttpClientUtils.connect(url+"send", JSON.toJSONString(reqDTO), "POST", HttpClientUtils.getJsonHead());
-        logger.info("短信发送返回结果:{}", ret);
-		return ret;
+    	url = allZkNodeMap.get("sms.send.url");
+    	if(StringUtils.isNotBlank(url)){
+	    	logger.info("accessUrl = {}", url+"send");
+	    	String ret = HttpClientUtils.connect(url+"send", JSON.toJSONString(reqDTO), "POST", HttpClientUtils.getJsonHead());
+	        logger.info("短信发送返回结果:{}", ret);
+			return ret;
+    	}else{
+    		return null;
+    	}
     }
     
     public String getRandNum(int charCount) {

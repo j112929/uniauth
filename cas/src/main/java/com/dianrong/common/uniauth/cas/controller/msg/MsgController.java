@@ -36,8 +36,8 @@ public class MsgController {
 	 */
 	@Autowired
 	private UserInfoManageService userInfoManageService;
-
-	SMSService smsService = new SMSService();
+	@Autowired
+	SMSService smsService;
 	@ResponseBody
 	@RequestMapping(value = "/send", method = RequestMethod.POST)
 	public Response<?> send(HttpServletRequest request, HttpServletResponse response)
