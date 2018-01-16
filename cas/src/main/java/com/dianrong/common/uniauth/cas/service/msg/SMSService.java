@@ -93,7 +93,7 @@ public class SMSService {
      */
     public String sendMsg(Map<String, String> reqDTO) throws Exception {
     	logger.info("短信发送参数:{}", JSON.toJSONString(reqDTO));
-    	url = allZkNodeMap.get("sms.send.url");
+    	String url = allZkNodeMap.get("sms.send.url");
     	if(StringUtils.isNotBlank(url)){
 	    	logger.info("accessUrl = {}", url+"send");
 	    	String ret = HttpClientUtils.connect(url+"send", JSON.toJSONString(reqDTO), "POST", HttpClientUtils.getJsonHead());
