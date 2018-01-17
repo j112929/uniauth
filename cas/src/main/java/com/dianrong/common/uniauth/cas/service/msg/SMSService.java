@@ -34,7 +34,6 @@ public class SMSService {
 	private Map<String, String> allZkNodeMap;
 //    private String url = "http://message.sit01.shenmajr.com/";//test
 //    private String url = "http://message.shenmajr.com/";//pro
-	private String url = "";
     
 
 	public MessageResponse sendMessage(MessageVaildCodeRequest messageVaildCodeRequest) {
